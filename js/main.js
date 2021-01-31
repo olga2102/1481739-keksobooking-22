@@ -1,20 +1,12 @@
 const RangeValidity = function (min,max) {
-  const isNegativeNumber = min < 0 || max < 0;
-  const isWrongRange = max <= min;
-
-  if (isNegativeNumber) {
-    throw new Error('Диапазон должен принимать положительное значение');
+  if (min < 0 || max < 0 || max <= min) {
+    return alert('Mistake');
   }
-
-  if (isWrongRange) {
-    throw new Error('Неверно указан диапазон');
-  }
-
   return true;
 }
 
 const getRandomIntInclusive = function (min, max) {
-  if (RangeValidity) {
+  if (RangeValidity(min, max)) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }
@@ -22,7 +14,7 @@ const getRandomIntInclusive = function (min, max) {
 getRandomIntInclusive (1, 5);
 
 const getRandomInt = function (min, max, fix = 2) {
-  if (RangeValidity) {
+  if (RangeValidity (min, max)) {
     const rand =  Math.random() * (max - min + 1) + min;
 
     return rand.toFixed(fix);
