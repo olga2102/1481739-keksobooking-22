@@ -9,6 +9,7 @@ const getRandomIntInclusive = function (min, max) {
   if (RangeValidity(min, max)) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+  return false;
 }
 
 getRandomIntInclusive (1, 5);
@@ -19,6 +20,7 @@ const getRandomInt = function (min, max, fix = 2) {
 
     return rand.toFixed(fix);
   }
+  return false;
 }
 
 getRandomInt (1, 5, 3);
