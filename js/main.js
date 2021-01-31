@@ -1,6 +1,6 @@
 const RangeValidity = function (min,max) {
   if (min < 0 || max < 0 || max <= min) {
-    return alert('Mistake');
+    return false;
   }
   return true;
 }
