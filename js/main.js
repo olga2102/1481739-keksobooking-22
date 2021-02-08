@@ -1,14 +1,16 @@
-const totalCount = 10;
-const minAvatarCount = 1;
-const maxAvatarCount = 8;
+const TOTAL_COUNT = 10;
+const MIN_AVATAR_COUNT = 1;
+const MAX_AVATAR_COUNT = 8;
 const offerTitles = [
-  'Лучшее, что ты видел','Выгодное предложение',
-  'Нормальный вариант',  'Закрой глаза и жми сюда',
+  'Лучшее, что ты видел',
+  'Выгодное предложение',
+  'Нормальный вариант',
+  'Закрой глаза и жми сюда',
   'Не для слабонервных',
 ];
 
-const minPrice = 1000;
-const maxPrice = 100000;
+const MIN_PRICE = 1000;
+const MAX_PRICE = 100000;
 const offerTypes = [
   'palace',
   'flat',
@@ -16,10 +18,10 @@ const offerTypes = [
   'bungalow',
 ];
 
-const minRooms = 1;
-const maxRooms = 10;
-const minGuests = 1;
-const maxGuests = 30;
+const MIN_ROOMS = 1;
+const MAX_ROOMS = 10;
+const MIN_GUESTS = 1;
+const MAX_GUESTS  = 30;
 const offerCheckInTimes = [
   '12:00',
   '13:00',
@@ -43,7 +45,8 @@ const offerFeatures = [
 const offerDescriptions = [
   'Идеальное место',
   'Ой, хорошо',
-  'Норм', 'Ну,если не придираться, пойдет',
+  'Норм',
+  'Ну,если не придираться, пойдет',
   'Все плохо',
   'За чтооо',
 ];
@@ -66,6 +69,7 @@ const checkRangeValidity = (min,max) => {
   if (min < 0 || max < 0 || max <= min) {
     return false;
   }
+
   return true;
 }
 
@@ -73,66 +77,71 @@ const getRandomIntInclusive = (min, max) => {
   if (checkRangeValidity(min, max)) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
   return -1;
 }
 
 const getRandomFloatInclusive = (min, max, fix = 2) => {
-  if (checkRangeValidity (min, max)) {
-    const randomNumber =  Math.random() * (max - min + 1) + min;
+  if (checkRangeValidity(min, max)) {
+    const randomNumber =  Math.random() * (max - min) + min;
 
     return randomNumber.toFixed(fix);
   }
+
   return -1;
 }
 
 
 const getRandomArrayElement = (elements) => {
-  const indexElement = getRandomIntInclusive(0, elements.length-1)
+  const indexElement = getRandomIntInclusive(0, elements.length - 1);
   return elements[indexElement];
 };
 
-const getUniqueArray = (array, length) => {
+const getUniqueArray = (array) => {
   const uniqueArray = [];
-  for (let i=0; i <= length-1; i++) {
-    uniqueArray.push(getRandomArrayElement)
+
+  for (let i=0; i <= array.length-1; i++) {
+    const randomElement = getRandomArrayElement(array);
+
+    if (!uniqueArray.includes(randomElement)) {
+      uniqueArray.push(randomElement);
+    }
   }
+
   return uniqueArray;
 };
 
 const getLocation = () => {
-  const x = getRandomFloatInclusive (xMinLocation, xMaxLocation, 5);
-  const y = getRandomFloatInclusive (yMinLocation, yMaxLocation, 5)
+  const x = getRandomFloatInclusive(xMinLocation, xMaxLocation, 5);
+  const y = getRandomFloatInclusive(yMinLocation, yMaxLocation, 5);
+
   return [x, y]
 };
 
 const getAuthor = () => {
-  return  {avatar: 'img/avatars/user' + 0 + getRandomIntInclusive(minAvatarCount, maxAvatarCount) + '.png'};
+  return  {avatar: 'img/avatars/user' + 0 + getRandomIntInclusive(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT) + '.png'};
 };
-
-const getOffer = () => {
-  return {
-    title: getRandomArrayElement (offerTitles),
-    address: getLocation(),
-    price: getRandomIntInclusive (minPrice, maxPrice),
-    type: getRandomArrayElement (offerTypes),
-    rooms: getRandomIntInclusive (minRooms, maxRooms),
-    guests: getRandomIntInclusive (minGuests, maxGuests),
-    checkin: getRandomArrayElement (offerCheckInTimes),
-    checkout: getRandomArrayElement (offerCheckOutTimes),
-    description: getRandomArrayElement (offerDescriptions),
-    features: getUniqueArray (offerFeatures, 6),
-    photos: getUniqueArray (offerPhotos, 3),
-  }
-}
 
 const getTotalObject = () => {
   return {
     author: getAuthor(),
-    offer: getOffer(),
+    offer: {
+      title: getRandomArrayElement(offerTitles),
+      address: getLocation(),
+      price: getRandomIntInclusive(MIN_PRICE, MAX_PRICE),
+      type: getRandomArrayElement(offerTypes),
+      rooms: getRandomIntInclusive(MIN_ROOMS, MAX_ROOMS),
+      guests: getRandomIntInclusive(MIN_GUESTS , MAX_GUESTS ),
+      checkin: getRandomArrayElement(offerCheckInTimes),
+      checkout: getRandomArrayElement(offerCheckOutTimes),
+      description: getRandomArrayElement(offerDescriptions),
+      features: getUniqueArray(offerFeatures),
+      photos: getUniqueArray(offerPhotos),
+    },
     location: getLocation(),
   }
 }
 
-const createSimilarOffers = new Array(totalCount).fill(null).map(() => getTotalObject());
+const createSimilarOffers = new Array(TOTAL_COUNT).fill(null).map(() => getTotalObject());
 
 createSimilarOffers();
