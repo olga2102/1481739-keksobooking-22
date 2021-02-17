@@ -1,4 +1,5 @@
-import {getRandomIntInclusive,
+import {
+  getRandomIntInclusive,
   getRandomFloatInclusive,
   getRandomArrayElement,
   getUniqueArray} from './util.js';
@@ -37,12 +38,12 @@ const OFFER_TITLES = [
   'Не для слабонервных',
 ];
 
-const OFFER_TYPES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-];
+const OFFER_TYPES = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+};
 
 const OFFER_CHECKIN_TIMES = [
   '12:00',
@@ -79,6 +80,8 @@ const OFFER_PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
+const houseTypes = Object.keys(OFFER_TYPES);
+
 const getLocation = () => {
   const x = getRandomFloatInclusive(X_MIN_LOCATION, X_MAX_LOCATION, 5);
   const y = getRandomFloatInclusive(Y_MIN_LOCATION, Y_MAX_LOCATION, 5);
@@ -87,7 +90,7 @@ const getLocation = () => {
 };
 
 const getAuthor = () => {
-  return  {avatar: 'img/avatars/user' + 0 + getRandomIntInclusive(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT) + '.png'};
+  return  {avatar: `img/avatars/user' 0${getRandomIntInclusive(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.png`};
 };
 
 const getTotalObject = () => {
@@ -97,7 +100,7 @@ const getTotalObject = () => {
       title: getRandomArrayElement(OFFER_TITLES),
       address: getLocation(),
       price: getRandomIntInclusive(MIN_PRICE, MAX_PRICE),
-      type: getRandomArrayElement(OFFER_TYPES),
+      type: getRandomArrayElement(houseTypes),
       rooms: getRandomIntInclusive(MIN_ROOMS, MAX_ROOMS),
       guests: getRandomIntInclusive(MIN_GUESTS , MAX_GUESTS ),
       checkin: getRandomArrayElement(OFFER_CHECKIN_TIMES),
@@ -114,4 +117,4 @@ const createSimilarOffers = (count = TOTAL_COUNT) => {
   return new Array(count).fill(null).map(() => getTotalObject());
 }
 
-export {createSimilarOffers};
+export {createSimilarOffers, OFFER_TYPES};

@@ -43,7 +43,8 @@ const getUniqueArray = (array) => {
   return uniqueArray;
 };
 
-export {getRandomIntInclusive,
+export {
+  getRandomIntInclusive,
   getRandomFloatInclusive,
   getRandomArrayElement,
   getUniqueArray};

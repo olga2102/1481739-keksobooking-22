@@ -1,3 +1,2 @@
-import {createSimilarOffers} from './data.js';
-
-createSimilarOffers();
+import './data.js';
+import './similar-elements.js';
