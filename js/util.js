@@ -43,8 +43,31 @@ const getUniqueArray = (array) => {
   return uniqueArray;
 };
 
+const appendContent = (element, content, appendType = 'textContent') => {
+  if (!content) {
+    return element.remove();
+  }
+
+  switch (appendType) {
+    case 'textContent':
+      element.textContent = content;
+      break;
+    case 'innerHTML':
+      element.innerHTML = '';
+      element.innerHTML = content;
+      break;
+    case 'src':
+      element.src = content;
+      break;
+    default:
+      throw new Error(`Unexpected appendType: ${appendType}`);
+  }
+};
+
 export {
   getRandomIntInclusive,
   getRandomFloatInclusive,
   getRandomArrayElement,
-  getUniqueArray};
+  getUniqueArray,
+  appendContent
+};
