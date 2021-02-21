@@ -1,4 +1,5 @@
-import {getRandomIntInclusive,
+import {
+  getRandomIntInclusive,
   getRandomFloatInclusive,
   getRandomArrayElement,
   getUniqueArray} from './util.js';
@@ -38,10 +39,10 @@ const OFFER_TITLES = [
 ];
 
 const OFFER_TYPES = [
-  'palace',
+  'bungalow',
   'flat',
   'house',
-  'bungalow',
+  'palace',
 ];
 
 const OFFER_CHECKIN_TIMES = [
@@ -87,7 +88,7 @@ const getLocation = () => {
 };
 
 const getAuthor = () => {
-  return  {avatar: 'img/avatars/user' + 0 + getRandomIntInclusive(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT) + '.png'};
+  return  {avatar: `img/avatars/user0${getRandomIntInclusive(MIN_AVATAR_COUNT, MAX_AVATAR_COUNT)}.png`};
 };
 
 const getTotalObject = () => {

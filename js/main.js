@@ -1,3 +1,5 @@
 import {createSimilarOffers} from './data.js';
+import {renderSimilarOffers} from './similar-elements.js';
 
-createSimilarOffers();
+const offers = createSimilarOffers(1);
+renderSimilarOffers(offers);
