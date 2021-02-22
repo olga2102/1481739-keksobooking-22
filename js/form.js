@@ -23,12 +23,12 @@ const onSelectType = () => {
 }
 
 const onSelectTime = () => {
-  timeIn.addEventListener('change', () => {
-    timeOut.value = timeIn.value;
+  timeIn.addEventListener('change', (evt) => {
+    timeOut.value = evt.target.value;
   });
 
-  timeOut.addEventListener('change', () => {
-    timeIn.value = timeOut.value;
+  timeOut.addEventListener('change', (evt) => {
+    timeIn.value = evt.target.value;
   });
 }
 
