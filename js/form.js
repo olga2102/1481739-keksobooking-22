@@ -39,19 +39,12 @@ const onSelectTime = () => {
 
 const inactivateForm = () => {
   mainForm.classList.add('ad-form--disabled');
-}
-
-const inactivateFields = () => {
   for( let i = 0; i < fieldForm.length; i++ ) {
     fieldForm[i].setAttribute('disabled', 'disabled');
   }
-}
 
-const inactivateMapForm = () => {
   mapFilters.classList.add('ad-form--disabled');
-}
 
-const inactivateMapFormFields = () => {
   for( let i = 0; i < fieldMapForm.length; i++ ) {
     fieldMapForm[i].setAttribute('disabled', 'disabled');
   }
@@ -73,24 +66,9 @@ const activateForm = () => {
   }
 }
 
-// const activateFields = () => {
-
-// }
-
-// const activateMapForm = () => {
-
-// }
-
-// const activateMapFormFields = () => {
-
-// }
-
 export {
   onSelectType,
   onSelectTime,
   inactivateForm,
-  inactivateFields,
-  inactivateMapForm,
-  inactivateMapFormFields,
   activateForm
 }
