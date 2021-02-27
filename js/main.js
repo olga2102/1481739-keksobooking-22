@@ -1,8 +1,7 @@
-import {createSimilarOffers} from './data.js';
-import {renderSimilarOffers} from './similar-elements.js';
-import {onSelectType, onSelectTime} from './form.js';
+import {onSelectType, onSelectTime, deactivateForm} from './form.js';
+import {initMap} from './map.js'
 
-const offers = createSimilarOffers(1);
-renderSimilarOffers(offers);
 onSelectType();
 onSelectTime();
+deactivateForm()
+initMap();
