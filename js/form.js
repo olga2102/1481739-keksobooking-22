@@ -37,16 +37,17 @@ const onSelectTime = () => {
   });
 }
 
-const inactivateForm = () => {
+const deactivateForm = () => {
   mainForm.classList.add('ad-form--disabled');
+
   for( let i = 0; i < fieldForm.length; i++ ) {
-    fieldForm[i].setAttribute('disabled', 'disabled');
+    fieldForm[i].disabled = true;
   }
 
   mapFilters.classList.add('ad-form--disabled');
 
   for( let i = 0; i < fieldMapForm.length; i++ ) {
-    fieldMapForm[i].setAttribute('disabled', 'disabled');
+    fieldMapForm[i].disabled = true;
   }
 }
 
@@ -54,13 +55,13 @@ const activateForm = () => {
   mainForm.classList.remove('ad-form--disabled');
 
   for( let i = 0; i < fieldForm.length; i++ ) {
-    fieldForm[i].removeAttribute('disabled', 'disabled');
+    fieldForm[i].disabled = false;
   }
 
   mapFilters.classList.remove('ad-form--disabled');
 
   for( let i = 0; i < fieldMapForm.length; i++ ) {
-    fieldMapForm[i].removeAttribute('disabled', 'disabled');
+    fieldMapForm[i].disabled = false;
 
     address.setAttribute('readonly', 'readonly');
   }
@@ -69,6 +70,6 @@ const activateForm = () => {
 export {
   onSelectType,
   onSelectTime,
-  inactivateForm,
+  deactivateForm,
   activateForm
 }

@@ -58,7 +58,7 @@ const initMap = () => {
     address.value = `${formatadLat}, ${formatedLng}`
   });
 
-  for(let offer of offers) {
+  for(const offer of offers) {
     const [lat, lng] = offer.location;
 
     const offerMarker = L.marker({
