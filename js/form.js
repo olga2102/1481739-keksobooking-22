@@ -8,6 +8,14 @@ const propertyType = mainForm.querySelector('#type');
 const mapFilters = document.querySelector('.map__filters');
 const fieldMapForm = mapFilters.querySelectorAll('.map__filter');
 const fieldForm = mainForm.querySelectorAll('.ad-form fieldset');
+const titleForm = mainForm.querySelector('#title');
+const priceForm = mainForm.querySelector('#price');
+const roomNumber = document.querySelector('#room_number');
+const roomCapacities = document.querySelector('#capacity');
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE = 1000000;
 
 const priceForType = {
   bungalow: 0,
@@ -15,6 +23,29 @@ const priceForType = {
   house: 5000,
   palace: 10000,
 }
+
+const allowedValuesRoomsforGuests = {
+  '1': [1],
+  '2': [1, 2],
+  '3': [1, 2, 3],
+  '100': [0],
+}
+//вот с этим трабл
+const onRoomsSelectChange = (evt) => {
+  const selectedRoomOption = evt.target.value; //значение количества комнат 1, 2, 3, 100
+  const currentAllowedValues = allowedValuesRoomsforGuests[selectedRoomOption]; // массив количества гостей
+
+  for (let i = 0; i < roomCapacities.length; i ++) {
+    const optionValue = roomCapacities[i].value; //значение количества гостей
+    const isOptionAllowed = currentAllowedValues.includes(optionValue); //включение в массив значений количества гостей
+    if (!isOptionAllowed) {
+      roomCapacities[i].disabled = true;
+    }
+    roomNumber[i].value = roomCapacities[i].value;
+  }
+}
+
+roomNumber.addEventListener('change', onRoomsSelectChange)
 
 const getHousingPrice = (type) => {
   return priceForType[type];
@@ -66,6 +97,34 @@ const activateForm = () => {
     address.setAttribute('readonly', 'readonly');
   }
 }
+
+titleForm.addEventListener('input', () => {
+  const valueLength = titleForm.value.length;
+
+  if (valueLength < MIN_TITLE_LENGTH) {
+    titleForm.setCustomValidity(`Ещё ${MIN_TITLE_LENGTH - valueLength} симв.`);
+  } else if (valueLength > MAX_TITLE_LENGTH) {
+    titleForm.setCustomValidity(`Удалите лишние ${valueLength - MAX_TITLE_LENGTH} симв.`);
+  } else if (titleForm.validity.valueMissing) {
+    titleForm.setCustomValidity('Обязательное поле');
+  } else {
+    titleForm.setCustomValidity('');
+  }
+  titleForm.reportValidity();
+});
+
+priceForm.addEventListener('input', () => {
+  const valuePrice = priceForm.value;
+
+  if (valuePrice > MAX_PRICE) {
+    priceForm.setCustomValidity(`Цена за ночь не может превышать ${MAX_PRICE}`);
+  } else if (priceForm.validity.valueMissing) {
+    priceForm.setCustomValidity('Обязательное поле');
+  } else {
+    priceForm.setCustomValidity('');
+  }
+  priceForm.reportValidity();
+});
 
 export {
   onSelectType,
