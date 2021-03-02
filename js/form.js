@@ -25,27 +25,41 @@ const priceForType = {
 }
 
 const allowedValuesRoomsforGuests = {
-  '1': [1],
-  '2': [1, 2],
-  '3': [1, 2, 3],
-  '100': [0],
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
 }
 //вот с этим трабл
 const onRoomsSelectChange = (evt) => {
   const selectedRoomOption = evt.target.value; //значение количества комнат 1, 2, 3, 100
-  const currentAllowedValues = allowedValuesRoomsforGuests[selectedRoomOption]; // массив количества гостей
+  const allowedSeats = allowedValuesRoomsforGuests[selectedRoomOption]; // массив количества гостей
 
   for (let i = 0; i < roomCapacities.length; i ++) {
-    const optionValue = roomCapacities[i].value; //значение количества гостей
-    const isOptionAllowed = currentAllowedValues.includes(optionValue); //включение в массив значений количества гостей
+    const optionValueCapacity = roomCapacities[i].value; //значение количества гостей
+    const isOptionAllowed = allowedSeats.includes(optionValueCapacity); //включение в массив значений количества гостей
+
     if (!isOptionAllowed) {
       roomCapacities[i].disabled = true;
+    } else {
+      roomCapacities[i].selected = true;
+      roomCapacities[i].disabled = false;
     }
-    roomNumber[i].value = roomCapacities[i].value;
   }
 }
 
-roomNumber.addEventListener('change', onRoomsSelectChange)
+roomNumber.addEventListener('change', onRoomsSelectChange);
+
+const setInitialRoomsAmount = () => {
+  const capacity = roomCapacities.value;
+  roomNumber.value = capacity;
+};
+
+const onSelectGuestAmount = () => {
+  roomCapacities.addEventListener('change', (evt) => {
+    roomNumber.value = evt.target.value;
+  });
+}
 
 const getHousingPrice = (type) => {
   return priceForType[type];
@@ -83,6 +97,7 @@ const deactivateForm = () => {
 }
 
 const activateForm = () => {
+  setInitialRoomsAmount();
   mainForm.classList.remove('ad-form--disabled');
 
   for( let i = 0; i < fieldForm.length; i++ ) {
@@ -130,5 +145,6 @@ export {
   onSelectType,
   onSelectTime,
   deactivateForm,
-  activateForm
+  activateForm,
+  onSelectGuestAmount
 }
