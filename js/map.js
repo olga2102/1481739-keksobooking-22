@@ -1,12 +1,14 @@
 /* global L:readonly */
 import {activateForm} from './form.js';
 import {createCard} from './popup.js';
-import {createSimilarOffers} from './data.js';
 
 const MAIN_LATITUDE = 35.68950;
 const MAIN_LONGITUDE = 139.69171;
 const address = document.querySelector('#address');
-const offers = createSimilarOffers(10);
+
+const setAddress = () => {
+  address.value = `${MAIN_LATITUDE}, ${MAIN_LONGITUDE}`;
+};
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -20,11 +22,33 @@ const offerPinIcon = L.icon({
   iconAnchor: [20, 40],
 })
 
-const initMap = () => {
+const mainPinMarker = L.marker(
+  {
+    lat: MAIN_LATITUDE,
+    lng: MAIN_LONGITUDE,
+  },
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  },
+);
+
+mainPinMarker.on('moveend', (evt) => {
+  const formatedLat = evt.target.getLatLng().lat.toFixed(5);
+  const formatedLng = evt.target.getLatLng().lng.toFixed(5);
+
+  address.value = `${formatedLat}, ${formatedLng}`
+});
+
+const resetMainPinMarker = () => {
+  mainPinMarker.setLatLng(L.latLng(MAIN_LATITUDE, MAIN_LONGITUDE));
+}
+
+const initMap = (offers) => {
   const map = L.map('map-canvas')
     .on('load', () => {
       activateForm();
-      address.value = `${MAIN_LATITUDE}, ${MAIN_LONGITUDE}`;
+      setAddress();
     })
     .setView({
       lat: MAIN_LATITUDE,
@@ -38,28 +62,10 @@ const initMap = () => {
     },
   ).addTo(map);
 
-  const mainPinMarker = L.marker(
-    {
-      lat: MAIN_LATITUDE,
-      lng: MAIN_LONGITUDE,
-    },
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  );
-
   mainPinMarker.addTo(map);
 
-  mainPinMarker.on('moveend', (evt) => {
-    const formatadLat = evt.target.getLatLng().lat.toFixed(5);
-    const formatedLng = evt.target.getLatLng().lng.toFixed(5);
-
-    address.value = `${formatadLat}, ${formatedLng}`
-  });
-
   for(const offer of offers) {
-    const [lat, lng] = offer.location;
+    const {lat, lng} = offer.location;
 
     const offerMarker = L.marker({
       lat,
@@ -74,4 +80,4 @@ const initMap = () => {
   }
 }
 
-export {initMap, address}
+export {initMap, address, setAddress, resetMainPinMarker}
