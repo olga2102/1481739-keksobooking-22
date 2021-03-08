@@ -60,11 +60,7 @@ const setInitialRoomsAmount = () => {
 const onSelectGuestAmount = () => {
   roomCapacities.addEventListener('change', (evt) => {
     const amountOfGuests = evt.target.value;
-    let amountOfRooms = amountOfGuests;
-
-    if (amountOfGuests == 0) {
-      amountOfRooms = 100;
-    }
+    const amountOfRooms = amountOfGuests == 0 ? 100 : amountOfGuests;
 
     roomNumber.value = amountOfRooms;
   });
@@ -167,7 +163,7 @@ const setMainFormSubmit = () => {
   });
 }
 
-const setMainFormReset = () => {
+const handleFormReset = () => {
   const buttonReset = mainForm.querySelector('.ad-form__reset');
   buttonReset.addEventListener('click', (evt) => {
     evt.preventDefault();
@@ -184,5 +180,5 @@ export {
   activateForm,
   onSelectGuestAmount,
   setMainFormSubmit,
-  setMainFormReset
+  handleFormReset
 }

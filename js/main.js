@@ -1,4 +1,4 @@
-import {onSelectType, onSelectTime, deactivateForm, onSelectGuestAmount, setMainFormSubmit, setMainFormReset} from './form.js';
+import {onSelectType, onSelectTime, deactivateForm, onSelectGuestAmount, setMainFormSubmit, handleFormReset} from './form.js';
 // import './message.js';
 import {initMap} from './map.js'
 import {showGetErrorMessage} from './util.js';
@@ -11,7 +11,7 @@ onSelectTime();
 deactivateForm();
 onSelectGuestAmount();
 setMainFormSubmit();
-setMainFormReset();
+handleFormReset();
 
 getData((data) => {
   initMap(data.slice(0, OFFERS_COUNT));
