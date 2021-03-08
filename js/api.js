@@ -1,8 +1,12 @@
-const SERVER_GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
-const SERVER_POST_URL = 'https://22.javascript.pages.academy/keksobooking';
+// const SERVER_GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
+// const SERVER_POST_URL = 'https://22.javascript.pages.academy/keksobooking';
+const BASE_URL = 'https://22.javascript.pages.academy/keksobooking';
+const GET_URL = BASE_URL;
+const POST_URL = `${BASE_URL}/data`;
+
 
 const getData = (onSuccess, onFail) => {
-  fetch(SERVER_GET_URL)
+  fetch(GET_URL)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -14,7 +18,7 @@ const getData = (onSuccess, onFail) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    SERVER_POST_URL,
+    POST_URL,
     {
       method: 'POST',
       body,
