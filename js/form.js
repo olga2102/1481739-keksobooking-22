@@ -1,4 +1,6 @@
-import {address} from './map.js'
+import {address, setAddress, resetMainPinMarker} from './map.js';
+import { sendData } from './api.js';
+import {showSuccessMessage, showErrorMessage} from './message.js';
 
 const mainForm = document.querySelector('.ad-form');
 const timeIn = mainForm.querySelector('#timein');
@@ -30,7 +32,7 @@ const allowedValuesRoomsforGuests = {
   3: ['1', '2', '3'],
   100: ['0'],
 }
-//вот с этим трабл
+
 const onRoomsSelectChange = (evt) => {
   const selectedRoomOption = evt.target.value; //значение количества комнат 1, 2, 3, 100
   const allowedSeats = allowedValuesRoomsforGuests[selectedRoomOption]; // массив количества гостей
@@ -57,7 +59,10 @@ const setInitialRoomsAmount = () => {
 
 const onSelectGuestAmount = () => {
   roomCapacities.addEventListener('change', (evt) => {
-    roomNumber.value = evt.target.value;
+    const amountOfGuests = evt.target.value;
+    const amountOfRooms = amountOfGuests == 0 ? 100 : amountOfGuests;
+
+    roomNumber.value = amountOfRooms;
   });
 }
 
@@ -141,10 +146,39 @@ priceForm.addEventListener('input', () => {
   priceForm.reportValidity();
 });
 
+const setMainFormSubmit = () => {
+  mainForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => {
+        showSuccessMessage();
+        mainForm.reset();
+        setAddress();
+        resetMainPinMarker();
+      },
+      () => showErrorMessage(),
+      new FormData(evt.target),
+    )
+  });
+}
+
+const handleFormReset = () => {
+  const buttonReset = mainForm.querySelector('.ad-form__reset');
+  buttonReset.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    mainForm.reset();
+    setAddress();
+    resetMainPinMarker();
+  })
+};
+
 export {
   onSelectType,
   onSelectTime,
   deactivateForm,
   activateForm,
-  onSelectGuestAmount
+  onSelectGuestAmount,
+  setMainFormSubmit,
+  handleFormReset
 }
