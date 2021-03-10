@@ -1,6 +1,7 @@
 /* global L:readonly */
 import {activateForm} from './form.js';
 import {createCard} from './popup.js';
+import {getFilteredMarkers} from './filter.js'
 
 const MAIN_LATITUDE = 35.68950;
 const MAIN_LONGITUDE = 139.69171;
@@ -43,13 +44,13 @@ mainPinMarker.on('moveend', (evt) => {
 const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(L.latLng(MAIN_LATITUDE, MAIN_LONGITUDE));
 }
-
+const map = L.map('map-canvas');
 const initMap = (offers) => {
-  const map = L.map('map-canvas')
-    .on('load', () => {
-      activateForm();
-      setAddress();
-    })
+
+  map.on('load', () => {
+    activateForm();
+    setAddress();
+  })
     .setView({
       lat: MAIN_LATITUDE,
       lng: MAIN_LONGITUDE,
@@ -63,7 +64,13 @@ const initMap = (offers) => {
   ).addTo(map);
 
   mainPinMarker.addTo(map);
+  setMarkers(offers);
+  getFilteredMarkers(offers);
+}
 
+const markers = [];
+
+const setMarkers = (offers) => {
   for(const offer of offers) {
     const {lat, lng} = offer.location;
 
@@ -77,7 +84,15 @@ const initMap = (offers) => {
     );
 
     offerMarker.addTo(map).bindPopup(createCard(offer));
+
+    markers.push(offerMarker);
   }
 }
 
-export {initMap, address, setAddress, resetMainPinMarker}
+const removeMarkers = () => {
+  markers.forEach(marker => {
+    marker.remove();
+  })
+};
+
+export {initMap, address, setAddress, resetMainPinMarker, setMarkers, removeMarkers}
