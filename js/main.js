@@ -3,8 +3,6 @@ import {onSelectType, onSelectTime, deactivateForm, onSelectGuestAmount, setMain
 import {initMap} from './map.js'
 import {showGetErrorMessage} from './util.js';
 import {getData} from './api.js'
-const OFFERS_COUNT = 10;
-
 
 onSelectType();
 onSelectTime();
@@ -14,5 +12,5 @@ setMainFormSubmit();
 handleFormReset();
 
 getData((data) => {
-  initMap(data.slice(0, OFFERS_COUNT));
+  initMap(data);
 }, showGetErrorMessage);

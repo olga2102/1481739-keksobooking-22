@@ -1,8 +1,7 @@
 const BASE_URL = 'https://22.javascript.pages.academy/keksobooking'
-const GET_URL = `${BASE_URL}/data`;
 
 const getData = (onSuccess, onFail) => {
-  fetch(GET_URL)
+  fetch(`${BASE_URL}/data`)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
