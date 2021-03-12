@@ -1,7 +1,7 @@
 /* global L:readonly */
 import {activateForm} from './form.js';
 import {createCard} from './popup.js';
-import {getFilteredMarkers} from './filter.js'
+import {initFilterChangeListener} from './filter.js'
 
 const MAIN_LATITUDE = 35.68950;
 const MAIN_LONGITUDE = 139.69171;
@@ -65,7 +65,7 @@ const initMap = (offers) => {
 
   mainPinMarker.addTo(map);
   setMarkers(offers);
-  getFilteredMarkers(offers);
+  initFilterChangeListener(offers);
 }
 
 const markers = [];
