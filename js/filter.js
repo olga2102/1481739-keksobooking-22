@@ -12,21 +12,27 @@ const housingTypeFilter = mapFilters.querySelector('#housing-type');
 const housingPriceFilter = mapFilters.querySelector('#housing-price');
 const housingRoomsFilter = mapFilters.querySelector('#housing-rooms');
 const housingGuestsFilter = mapFilters.querySelector('#housing-guests');
-// const FeaturesFilter = document.querySelector('.map__features');
+const FeaturesFilter = document.querySelector('.map__features');
 
 const filterByType = (offer) => offer.offer.type === housingTypeFilter.value || housingTypeFilter.value === 'any';
 const filterByRooms = (offer) => offer.offer.rooms === Number(housingRoomsFilter.value) || housingRoomsFilter.value === 'any';
 const filterByGuests = (offer) => offer.offer.guests === Number(housingGuestsFilter.value) || housingGuestsFilter.value === 'any';
 
-// const filterbyFeatures = (offer) => {
-//   const checkedFeatures = FeaturesFilter.querySelectorAll('.map__checkbox:checked');
-//   for(const feature of checkedFeatures) {
-//     if(!offer.offer.features.includes(feature.value)) {
-//       return false
-//     }
-//     return true
-//   }
-// }
+const filterByFeatures = (offer) => {
+  const checkedFeatures = FeaturesFilter.querySelectorAll('input:checked');
+
+  if (checkedFeatures.length === 0) {
+    return true;
+  }
+
+  for (let i = 0; i < checkedFeatures.length; i ++) {
+    if (!offer.offer.features.includes(checkedFeatures[i].value)) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 const filterByPrice = (offer) => {
   const offerPrice = offer.offer.price;
@@ -48,9 +54,14 @@ const filterByPrice = (offer) => {
 }
 
 const getfilteredMarkers = (offers) => {
-  setMarkers(offers
-    .filter((offer) => filterByType(offer) && filterByGuests(offer) && filterByRooms(offer) && filterByPrice(offer)))
-    .slice(0, OFFERS_COUNT);
+  const filteredAds = offers.filter((offer) =>
+    filterByType(offer) &&
+    filterByGuests(offer) &&
+    filterByRooms(offer) &&
+    filterByPrice(offer) &&
+    filterByFeatures(offer));
+
+  setMarkers(filteredAds.slice(0, OFFERS_COUNT));
 }
 
 const recreateMarkers = _.debounce((offers) => {

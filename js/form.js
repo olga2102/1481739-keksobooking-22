@@ -1,6 +1,7 @@
 import {address, setAddress, resetMainPinMarker} from './map.js';
 import { sendData } from './api.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
+import {photoUploadFunction} from './photo.js'
 
 const mainForm = document.querySelector('.ad-form');
 const timeIn = mainForm.querySelector('#timein');
@@ -14,6 +15,13 @@ const titleForm = mainForm.querySelector('#title');
 const priceForm = mainForm.querySelector('#price');
 const roomNumber = document.querySelector('#room_number');
 const roomCapacities = document.querySelector('#capacity');
+
+const avatarPreview = document.querySelector('.ad-form-header__preview img');
+const avatarUploader = document.querySelector('#avatar');
+
+const housingPhotoPreview = document.querySelector('.ad-form__photo-preview');
+const housingPhotoUploader = document.querySelector('#images');
+
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -60,7 +68,7 @@ const setInitialRoomsAmount = () => {
 const onSelectGuestAmount = () => {
   roomCapacities.addEventListener('change', (evt) => {
     const amountOfGuests = evt.target.value;
-    const amountOfRooms = amountOfGuests == 0 ? 100 : amountOfGuests;
+    const amountOfRooms = amountOfGuests === '0' ? 100 : amountOfGuests;
 
     roomNumber.value = amountOfRooms;
   });
@@ -116,6 +124,9 @@ const activateForm = () => {
 
     address.setAttribute('readonly', 'readonly');
   }
+
+  photoUploadFunction(avatarUploader, avatarPreview);
+  photoUploadFunction(housingPhotoUploader, housingPhotoPreview);
 }
 
 titleForm.addEventListener('input', () => {
