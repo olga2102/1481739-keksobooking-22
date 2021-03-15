@@ -68,7 +68,7 @@ const setInitialRoomsAmount = () => {
 const onSelectGuestAmount = () => {
   roomCapacities.addEventListener('change', (evt) => {
     const amountOfGuests = evt.target.value;
-    const amountOfRooms = amountOfGuests === '0' ? 100 : amountOfGuests;
+    const amountOfRooms =  Number(amountOfGuests) === 0 ? 100 : amountOfGuests;
 
     roomNumber.value = amountOfRooms;
   });

@@ -1,11 +1,5 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'svg'];
 
-// const avatarPreview = document.querySelector('.ad-form-header__preview img');
-// const avatarUploader = document.querySelector('#avatar');
-
-// const housingPhotoPreview = document.querySelector('.ad-form__photo-preview');
-// const housingPhotoUploader = document.querySelector('#images');
-
 const photoUploadFunction = (input, preview) => {
   input.addEventListener('change', () => {
     const file = input.files[0];

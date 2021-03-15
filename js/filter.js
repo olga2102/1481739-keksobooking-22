@@ -20,7 +20,6 @@ const filterByGuests = (offer) => offer.offer.guests === Number(housingGuestsFil
 
 const filterByFeatures = (offer) => {
   const checkedFeatures = FeaturesFilter.querySelectorAll('input:checked');
-
   if (checkedFeatures.length === 0) {
     return true;
   }
