@@ -109,7 +109,7 @@ const deactivateForm = () => {
     fieldMapForm[i].disabled = true;
   }
 
-  mapFeatures.setAttribute('disabled', 'disabled');
+  mapFeatures.disabled = true;
 }
 
 const activateForm = () => {
@@ -125,7 +125,7 @@ const activateForm = () => {
   for( let i = 0; i < fieldMapForm.length; i++ ) {
     fieldMapForm[i].disabled = false;
 
-    mapFeatures.removeAttribute('disabled');
+    mapFeatures.disabled = false;
 
     address.setAttribute('readonly', 'readonly');
   }

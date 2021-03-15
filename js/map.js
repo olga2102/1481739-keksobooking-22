@@ -5,6 +5,7 @@ import {initFilterChangeListener} from './filter.js'
 
 const MAIN_LATITUDE = 35.68950;
 const MAIN_LONGITUDE = 139.69171;
+
 const address = document.querySelector('#address');
 const map = L.map('map-canvas');
 const markers = [];
