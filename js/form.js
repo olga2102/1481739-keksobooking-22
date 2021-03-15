@@ -1,7 +1,7 @@
 import {address, setAddress, resetMainPinMarker} from './map.js';
 import { sendData } from './api.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
-import {photoUploadFunction} from './photo.js'
+import {uploadPhoto} from './photo.js'
 
 const mainForm = document.querySelector('.ad-form');
 const timeIn = mainForm.querySelector('#timein');
@@ -10,6 +10,7 @@ const price = mainForm.querySelector('#price');
 const propertyType = mainForm.querySelector('#type');
 const mapFilters = document.querySelector('.map__filters');
 const fieldMapForm = mapFilters.querySelectorAll('.map__filter');
+const mapFeatures = document.querySelector('.map__features');
 const fieldForm = mainForm.querySelectorAll('.ad-form fieldset');
 const titleForm = mainForm.querySelector('#title');
 const priceForm = mainForm.querySelector('#price');
@@ -42,12 +43,12 @@ const allowedValuesRoomsforGuests = {
 }
 
 const onRoomsSelectChange = (evt) => {
-  const selectedRoomOption = evt.target.value; //значение количества комнат 1, 2, 3, 100
-  const allowedSeats = allowedValuesRoomsforGuests[selectedRoomOption]; // массив количества гостей
+  const selectedRoomOption = evt.target.value;
+  const allowedSeats = allowedValuesRoomsforGuests[selectedRoomOption];
 
   for (let i = 0; i < roomCapacities.length; i ++) {
-    const optionValueCapacity = roomCapacities[i].value; //значение количества гостей
-    const isOptionAllowed = allowedSeats.includes(optionValueCapacity); //включение в массив значений количества гостей
+    const optionValueCapacity = roomCapacities[i].value;
+    const isOptionAllowed = allowedSeats.includes(optionValueCapacity);
 
     if (!isOptionAllowed) {
       roomCapacities[i].disabled = true;
@@ -107,6 +108,8 @@ const deactivateForm = () => {
   for( let i = 0; i < fieldMapForm.length; i++ ) {
     fieldMapForm[i].disabled = true;
   }
+
+  mapFeatures.setAttribute('disabled', 'disabled');
 }
 
 const activateForm = () => {
@@ -122,11 +125,13 @@ const activateForm = () => {
   for( let i = 0; i < fieldMapForm.length; i++ ) {
     fieldMapForm[i].disabled = false;
 
+    mapFeatures.removeAttribute('disabled');
+
     address.setAttribute('readonly', 'readonly');
   }
 
-  photoUploadFunction(avatarUploader, avatarPreview);
-  photoUploadFunction(housingPhotoUploader, housingPhotoPreview);
+  uploadPhoto(avatarUploader, avatarPreview);
+  uploadPhoto(housingPhotoUploader, housingPhotoPreview);
 }
 
 titleForm.addEventListener('input', () => {

@@ -53,14 +53,14 @@ const filterByPrice = (offer) => {
 }
 
 const getfilteredMarkers = (offers) => {
-  const filteredAds = offers.filter((offer) =>
+  const filteredOffers = offers.filter((offer) =>
     filterByType(offer) &&
     filterByGuests(offer) &&
     filterByRooms(offer) &&
     filterByPrice(offer) &&
     filterByFeatures(offer));
 
-  setMarkers(filteredAds.slice(0, OFFERS_COUNT));
+  setMarkers(filteredOffers.slice(0, OFFERS_COUNT));
 }
 
 const recreateMarkers = _.debounce((offers) => {
