@@ -1,6 +1,6 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'svg'];
 
-const photoUploadFunction = (input, preview) => {
+const uploadPhoto = (input, preview) => {
   input.addEventListener('change', () => {
     const file = input.files[0];
     const fileName = file.name.toLowerCase();
@@ -19,4 +19,4 @@ const photoUploadFunction = (input, preview) => {
   });
 }
 
-export {photoUploadFunction};
+export {uploadPhoto};

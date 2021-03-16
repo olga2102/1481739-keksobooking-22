@@ -27,7 +27,6 @@ const showSuccessMessage = () => {
   document.addEventListener('keydown', onPopupEscKeydown);
 }
 
-
 const showErrorMessage = () => {
   errorMessage.style.zIndex = 1000;
   document.body.appendChild(errorMessage);
@@ -35,7 +34,6 @@ const showErrorMessage = () => {
   document.addEventListener('click', onClick);
   closeButton.addEventListener('click', onClick);
 };
-
 
 const removeMessage = () => {
   document.removeEventListener('click', onClick);

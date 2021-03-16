@@ -5,12 +5,10 @@ import {initFilterChangeListener} from './filter.js'
 
 const MAIN_LATITUDE = 35.68950;
 const MAIN_LONGITUDE = 139.69171;
+
 const address = document.querySelector('#address');
-
-const setAddress = () => {
-  address.value = `${MAIN_LATITUDE}, ${MAIN_LONGITUDE}`;
-};
-
+const map = L.map('map-canvas');
+const markers = [];
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
   iconSize: [52, 52],
@@ -34,6 +32,10 @@ const mainPinMarker = L.marker(
   },
 );
 
+const setAddress = () => {
+  address.value = `${MAIN_LATITUDE}, ${MAIN_LONGITUDE}`;
+};
+
 mainPinMarker.on('moveend', (evt) => {
   const formatedLat = evt.target.getLatLng().lat.toFixed(5);
   const formatedLng = evt.target.getLatLng().lng.toFixed(5);
@@ -44,7 +46,7 @@ mainPinMarker.on('moveend', (evt) => {
 const resetMainPinMarker = () => {
   mainPinMarker.setLatLng(L.latLng(MAIN_LATITUDE, MAIN_LONGITUDE));
 }
-const map = L.map('map-canvas');
+
 const initMap = (offers) => {
 
   map.on('load', () => {
@@ -67,8 +69,6 @@ const initMap = (offers) => {
   setMarkers(offers);
   initFilterChangeListener(offers);
 }
-
-const markers = [];
 
 const setMarkers = (offers) => {
   for(const offer of offers) {
