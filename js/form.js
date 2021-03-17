@@ -1,7 +1,25 @@
 import {address, setAddress, resetMainPinMarker} from './map.js';
 import {sendData} from './api.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
-import {uploadPhoto} from './photo.js'
+import {uploadPhoto} from './photo.js';
+
+const MIN_TITLE_LENGTH = 30;
+const MAX_TITLE_LENGTH = 100;
+const MAX_PRICE = 1000000;
+
+const priceForType = {
+  bungalow: 0,
+  flat: 1000,
+  house: 5000,
+  palace: 10000,
+}
+
+const allowedValuesRoomsforGuests = {
+  1: ['1'],
+  2: ['1', '2'],
+  3: ['1', '2', '3'],
+  100: ['0'],
+}
 
 const mainForm = document.querySelector('.ad-form');
 const timeIn = mainForm.querySelector('#timein');
@@ -22,25 +40,6 @@ const avatarUploader = document.querySelector('#avatar');
 
 const housingPhotoPreview = document.querySelector('.ad-form__photo-preview');
 const housingPhotoUploader = document.querySelector('#images');
-
-
-const MIN_TITLE_LENGTH = 30;
-const MAX_TITLE_LENGTH = 100;
-const MAX_PRICE = 1000000;
-
-const priceForType = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
-}
-
-const allowedValuesRoomsforGuests = {
-  1: ['1'],
-  2: ['1', '2'],
-  3: ['1', '2', '3'],
-  100: ['0'],
-}
 
 const onRoomsSelectChange = (evt) => {
   const selectedRoomOption = evt.target.value;

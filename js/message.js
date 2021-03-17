@@ -1,5 +1,7 @@
 import {isEscEvent} from './util.js';
 
+const POSITION_MESSAGE = 1000;
+
 const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 
@@ -21,14 +23,14 @@ const onClick = (evt) => {
 };
 
 const showSuccessMessage = () => {
-  successMessage.style.zIndex = '1000';
+  successMessage.style.zIndex = String(POSITION_MESSAGE);
   document.body.appendChild(successMessage);
   document.addEventListener('click', onClick);
   document.addEventListener('keydown', onPopupEscKeydown);
 }
 
 const showErrorMessage = () => {
-  errorMessage.style.zIndex = '1000';
+  errorMessage.style.zIndex = String(POSITION_MESSAGE);
   document.body.appendChild(errorMessage);
   document.addEventListener('keydown', onPopupEscKeydown);
   document.addEventListener('click', onClick);
