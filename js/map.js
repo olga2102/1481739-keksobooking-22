@@ -37,10 +37,10 @@ const setAddress = () => {
 };
 
 mainPinMarker.on('moveend', (evt) => {
-  const formatedLat = evt.target.getLatLng().lat.toFixed(5);
-  const formatedLng = evt.target.getLatLng().lng.toFixed(5);
+  const formattedLat = evt.target.getLatLng().lat.toFixed(5);
+  const formattedLng = evt.target.getLatLng().lng.toFixed(5);
 
-  address.value = `${formatedLat}, ${formatedLng}`
+  address.value = `${formattedLat}, ${formattedLng}`
 });
 
 const resetMainPinMarker = () => {

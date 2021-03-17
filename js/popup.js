@@ -32,8 +32,8 @@ const createPhotoElement = (element, content) => {
       const photoElement = document.createElement('img');
       photoElement.src = content[i];
       photoElement.alt = 'Фотография жилья';
-      photoElement.width = '45';
-      photoElement.height = '40';
+      photoElement.width = 45;
+      photoElement.height = 40;
       element.appendChild(photoElement);
     }
   } else {
