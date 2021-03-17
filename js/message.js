@@ -21,14 +21,14 @@ const onClick = (evt) => {
 };
 
 const showSuccessMessage = () => {
-  successMessage.style.zIndex = 1000;
+  successMessage.style.zIndex = '1000';
   document.body.appendChild(successMessage);
   document.addEventListener('click', onClick);
   document.addEventListener('keydown', onPopupEscKeydown);
 }
 
 const showErrorMessage = () => {
-  errorMessage.style.zIndex = 1000;
+  errorMessage.style.zIndex = '1000';
   document.body.appendChild(errorMessage);
   document.addEventListener('keydown', onPopupEscKeydown);
   document.addEventListener('click', onClick);

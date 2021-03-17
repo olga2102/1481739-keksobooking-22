@@ -52,7 +52,7 @@ const filterByPrice = (offer) => {
   return true;
 }
 
-const getfilteredMarkers = (offers) => {
+const getFilteredMarkers = (offers) => {
   const filteredOffers = offers.filter((offer) =>
     filterByType(offer) &&
     filterByGuests(offer) &&
@@ -65,7 +65,7 @@ const getfilteredMarkers = (offers) => {
 
 const recreateMarkers = _.debounce((offers) => {
   removeMarkers();
-  getfilteredMarkers(offers);
+  getFilteredMarkers(offers);
 }, RERENDER_DELAY);
 
 const initFilterChangeListener = (offers) => {
