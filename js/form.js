@@ -1,5 +1,5 @@
 import {address, setAddress, resetMainPinMarker} from './map.js';
-import {sendData } from './api.js';
+import {sendData} from './api.js';
 import {showSuccessMessage, showErrorMessage} from './message.js';
 import {uploadPhoto} from './photo.js'
 
