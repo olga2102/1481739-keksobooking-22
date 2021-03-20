@@ -1,4 +1,4 @@
-/* global _:readonly */
+import {debounce} from 'lodash';
 
 import {setMarkers, removeMarkers} from './map.js'
 
@@ -63,7 +63,7 @@ const getFilteredMarkers = (offers) => {
   setMarkers(filteredOffers.slice(0, OFFERS_COUNT));
 }
 
-const recreateMarkers = _.debounce((offers) => {
+const recreateMarkers = debounce((offers) => {
   removeMarkers();
   getFilteredMarkers(offers);
 }, RERENDER_DELAY);

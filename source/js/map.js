@@ -1,4 +1,4 @@
-/* global L:readonly */
+import L from 'leaflet';
 import {activateForm} from './form.js';
 import {createCard} from './popup.js';
 import {initFilterChangeListener} from './filter.js'
